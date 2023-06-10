@@ -66,8 +66,8 @@ def predict():
         predictions = model.predict(input_data)
 
         # Print the predicted next day's BTC price
-        predicted_price = predictions[0]
-        print(f'Predicted next day BTC price: {predicted_price:.2f}')
+        pred_price = predictions[0]
+        print(f'Predicted next day BTC price: {pred_price:.2f}')
 
         return render_template('predict.html', predicted_price=predicted_price)
 
