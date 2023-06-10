@@ -33,12 +33,12 @@ def index():
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
     if request.method == 'POST':
-        SYMBOL = 'BTCUSDT'
-        INTERVAL = Client.KLINE_INTERVAL_1DAY
-        WINDOW_SIZE = 7
+        symbol = 'BTCUSDT'
+        interval = Client.KLINE_INTERVAL_1DAY
+        window_size = 7
 
         # Fetch the latest price data for making predictions
-        latest_klines = client.futures_klines(symbol=SYMBOL, interval=INTERVAL, limit=WINDOW_SIZE)
+        latest_klines = client.futures_klines(symbol=symbol, interval=interval, limit=window_size)
         latest_data = pd.DataFrame(latest_klines, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume',
                                                            'close_time', 'quote_asset_volume', 'trades',
                                                            'taker_buy_base', 'taker_buy_quote', 'ignored'])
