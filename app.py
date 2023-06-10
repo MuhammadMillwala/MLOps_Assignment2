@@ -17,6 +17,9 @@ client = Client(API_KEY, API_SECRET)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    """
+    Renders the index page.
+    """
     if request.method == 'POST':
         # Get last 7 days of BTC price data from form
         last_7_days_data = [float(request.form[f'day_{i}']) for i in range(7)]
@@ -32,6 +35,9 @@ def index():
 
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
+    """
+    Handles the '/predict' route for making predictions.
+    """
     if request.method == 'POST':
         symbol = 'BTCUSDT'
         interval = Client.KLINE_INTERVAL_1DAY
@@ -39,9 +45,14 @@ def predict():
 
         # Fetch the latest price data for making predictions
         latest_klines = client.futures_klines(symbol=symbol, interval=interval, limit=window_size)
-        latest_data = pd.DataFrame(latest_klines, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume',
-                                                           'close_time', 'quote_asset_volume', 'trades',
-                                                           'taker_buy_base', 'taker_buy_quote', 'ignored'])
+        latest_data = pd.DataFrame(
+            latest_klines,
+            columns=[
+                'timestamp', 'open', 'high', 'low', 'close', 'volume',
+                'close_time', 'quote_asset_volume', 'trades',
+                'taker_buy_base', 'taker_buy_quote', 'ignored'
+            ]
+        )
         latest_data['timestamp'] = pd.to_datetime(latest_data['timestamp'], unit='ms')
         latest_data.set_index('timestamp', inplace=True)
         latest_data['close'] = pd.to_numeric(latest_data['close'])
