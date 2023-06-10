@@ -1,5 +1,5 @@
 """
-This module trains a random forest regressor model on historical price data and makes predictions on the next day's BTC price.
+This module trains a random forest on price data and makes predictions on the next day's BTC price.
 """
 
 import numpy as np
