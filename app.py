@@ -1,7 +1,3 @@
-"""
-Binance BTC Price Prediction
-"""
-
 import numpy as np
 import pandas as pd
 from binance.client import Client
@@ -19,12 +15,8 @@ API_KEY = 'hvkXktWV7JwZYRZRIbodO7ZFoBnuAcCOceosOE0FTufksIvQafO2yPLcL3jdW7oP'
 API_SECRET = '2z2tnZicu844s8YBdREGiT7OBRGDOxFFJlxbqOVQDTmO18vrkZLNkKlP9Vyog8PC'
 client = Client(API_KEY, API_SECRET)
 
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    """
-    Renders the index.html template and handles form submission for BTC price prediction.
-    """
     if request.method == 'POST':
         # Get last 7 days of BTC price data from form
         last_7_days_data = [float(request.form[f'day_{i}']) for i in range(7)]
@@ -38,13 +30,8 @@ def index():
 
     return render_template('index.html')
 
-
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
-    """
-    Fetches the latest BTC price data and makes predictions for the next day's price.
-    Renders the predict.html template with the predicted price.
-    """
     if request.method == 'POST':
         symbol = 'BTCUSDT'
         interval = Client.KLINE_INTERVAL_1DAY
@@ -52,12 +39,9 @@ def predict():
 
         # Fetch the latest price data for making predictions
         latest_klines = client.futures_klines(symbol=symbol, interval=interval, limit=window_size)
-        latest_data = pd.DataFrame(
-            latest_klines,
-            columns=['timestamp', 'open', 'high', 'low', 'close', 'volume',
-                     'close_time', 'quote_asset_volume', 'trades',
-                     'taker_buy_base', 'taker_buy_quote', 'ignored']
-        )
+        latest_data = pd.DataFrame(latest_klines, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume',
+                                                           'close_time', 'quote_asset_volume', 'trades',
+                                                           'taker_buy_base', 'taker_buy_quote', 'ignored'])
         latest_data['timestamp'] = pd.to_datetime(latest_data['timestamp'], unit='ms')
         latest_data.set_index('timestamp', inplace=True)
         latest_data['close'] = pd.to_numeric(latest_data['close'])
@@ -75,7 +59,6 @@ def predict():
         return render_template('predict.html', predicted_price=predicted_price)
 
     return render_template('predict.html')
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
