@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+    <title>BTC Price Predictor</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      nav {
+        background-color: #500808;
+        overflow: hidden;
+      }
+      nav a {
+        float: left;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+      }
+      nav a:hover {
+        background-color: #ddd;
+        color: black;
+      }
+      .active {
+        background-color: #4caf50;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a class="active" href="/">Home</a>
+      <a href="/predict">Service</a>
+    </nav>
+    <h1 class="text-center">BTC Price Predictor</h1>
+    {% if prediction %}
+    <p class="text-center">Predicted next day BTC price: {{ prediction }}</p>
+    {% endif %}
+    <form method="post" action="/predict">
+      {% for i in range(7) %}
+      <label for="day_{{ i }}">Day {{ i }}:</label>
+      <input type="text" id="day_{{ i }}" name="day_{{ i }}" />
+      {% endfor %}
+      <input type="submit" value="Make Prediction" />
+    </form>
+  </body>
+</html>

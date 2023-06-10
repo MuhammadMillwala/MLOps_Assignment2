@@ -1,0 +1,13 @@
+binance==0.3
+binance-data==0.1.6
+Flask==2.2.3
+Flask-RESTful==0.3.9
+Jinja2==3.1.2
+joblib==1.2.0
+matplotlib==3.7.0
+numpy==1.24.1
+pandas==1.5.3
+plotly==5.13.1
+pylint==2.16.2
+python-binance==1.0.17
+scikit-learn==1.2.2
