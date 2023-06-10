@@ -53,8 +53,8 @@ def predict():
         latest_data = pd.DataFrame(latest_klines, columns=[
             'timestamp', 'open', 'high', 'low', 'close', 'volume',
             'close_time', 'quote_asset_volume', 'trades',
-            'taker_buy_base', 'taker_buy_quote', 'ignored'
-        ])
+            'taker_buy_base', 'taker_buy_quote', 'ignored'])
+        
         latest_data['timestamp'] = pd.to_datetime(latest_data['timestamp'], unit='ms')
         latest_data.set_index('timestamp', inplace=True)
         latest_data['close'] = pd.to_numeric(latest_data['close'])
@@ -69,7 +69,7 @@ def predict():
         pred_price = predictions[0]
         print(f'Predicted next day BTC price: {pred_price:.2f}')
 
-        return render_template('predict.html', predicted_price=predicted_price)
+        return render_template('predict.html', predicted_price=pred_price)
 
     return render_template('predict.html')
 
