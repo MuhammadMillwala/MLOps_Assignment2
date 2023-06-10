@@ -5,14 +5,14 @@ This module trains a random forest on price data and makes predictions on the ne
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
-from binance.client import Client
+from binance.client import Client as BinanceClient
 
 API_KEY = 'hvkXktWV7JwZYRZRIbodO7ZFoBnuAcCOceosOE0FTufksIvQafO2yPLcL3jdW7oP'
 API_SECRET = '2z2tnZicu844s8YBdREGiT7OBRGDOxFFJlxbqOVQDTmO18vrkZLNkKlP9Vyog8PC'
 
-client = Client(API_KEY, API_SECRET)
+client = BinanceClient(API_KEY, API_SECRET)
 SYMBOL = 'BTCUSDT'
-INTERVAL = Client.KLINE_INTERVAL_1DAY
+INTERVAL = BinanceClient.KLINE_INTERVAL_1DAY
 LIMIT = 500
 WINDOW_SIZE = 7
 
