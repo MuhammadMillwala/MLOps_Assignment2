@@ -1,6 +1,6 @@
 """
-Flask application that predicts the next day's Bitcoin (BTC) price using a trained machine learning model.
-It integrates with the Binance API to fetch the latest price data for making predictions.
+Flask application that predicts Bitcoin (BTC) price using a trained machine learning model.
+It integrates with the Binance API to fetch the price data for making predictions.
 """
 
 import numpy as np
