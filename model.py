@@ -17,10 +17,19 @@ LIMIT = 500
 WINDOW_SIZE = 7
 
 # Fetch live price data from the Binance API
-klines = client.futures_klines(symbol=SYMBOL, interval=INTERVAL, limit=LIMIT)
-data = pd.DataFrame(klines, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume',
-                                     'close_time', 'quote_asset_volume', 'trades',
-                                     'taker_buy_base', 'taker_buy_quote', 'ignored'])
+klines = client.futures_klines(
+    symbol=SYMBOL,
+    interval=INTERVAL,
+    limit=LIMIT
+)
+data = pd.DataFrame(
+    klines,
+    columns=[
+        'timestamp', 'open', 'high', 'low', 'close', 'volume',
+        'close_time', 'quote_asset_volume', 'trades',
+        'taker_buy_base', 'taker_buy_quote', 'ignored'
+    ]
+)
 data['timestamp'] = pd.to_datetime(data['timestamp'], unit='ms')
 data.set_index('timestamp', inplace=True)
 data['close'] = pd.to_numeric(data['close'])
@@ -36,10 +45,19 @@ model = RandomForestRegressor(n_estimators=100, random_state=42)
 model.fit(X, y)
 
 # Fetch the latest price data for making predictions
-latest_klines = client.futures_klines(symbol=SYMBOL, interval=INTERVAL, limit=WINDOW_SIZE)
-latest_data = pd.DataFrame(latest_klines, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume',
-                                                   'close_time', 'quote_asset_volume', 'trades',
-                                                   'taker_buy_base', 'taker_buy_quote', 'ignored'])
+latest_klines = client.futures_klines(
+    symbol=SYMBOL,
+    interval=INTERVAL,
+    limit=WINDOW_SIZE
+)
+latest_data = pd.DataFrame(
+    latest_klines,
+    columns=[
+        'timestamp', 'open', 'high', 'low', 'close', 'volume',
+        'close_time', 'quote_asset_volume', 'trades',
+        'taker_buy_base', 'taker_buy_quote', 'ignored'
+    ]
+)
 latest_data['timestamp'] = pd.to_datetime(latest_data['timestamp'], unit='ms')
 latest_data.set_index('timestamp', inplace=True)
 latest_data['close'] = pd.to_numeric(latest_data['close'])
