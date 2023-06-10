@@ -1,3 +1,8 @@
+"""
+This is a Flask application that uses a trained machine learning model to predict the next day's Bitcoin (BTC) price.
+It integrates with the Binance API to fetch the latest price data for making predictions.
+"""
+
 import numpy as np
 import pandas as pd
 from binance.client import Client
