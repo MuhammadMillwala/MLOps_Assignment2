@@ -22,4 +22,3 @@ jobs:
     - name: Analysing the code with pylint
       run: |
         pylint --disable=all <app.py>
-
